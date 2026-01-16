@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prompt List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+    }
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .title {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .prompt {
+      color: #555;
+      margin: 0;
+    }
+    .copy-btn {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .copy-btn.copied {
+      background: #10b981;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" id="promptContainer"></div>
+
+<script>
+  const prompts = [
+    { promptTitle: "GoTo Prompt to learn anything", prompt: "Explain [TOPIC] to me like I’m a total beginner with zero background. Use simple words, clear examples, and avoid jargon. Break it down step-by-step, and relate it to something I already know — like food, money, or everyday life. After explaining, ask me a simple question to test if I understood." },
+    { 
+        promptTitle: "Master Professional Build Prompt (Copy–Paste Ready)", 
+        prompt: ` Role & Expertise
+You are a senior-level [domain expert – e.g., software architect / blockchain engineer / product designer / AI engineer] with real-world production experience.
+
+Objective
+Design and build [clearly state what you want to build] that is scalable, secure, maintainable, and production-ready.
+
+Context & Constraints
+
+Target users: [who will use it]
+
+Platform / Tech stack: [e.g., Node.js, Next.js, blockchain, AWS, etc.]
+
+Constraints: [time, budget, APIs, no smart contracts, performance limits, etc.]
+
+Non-goals: [what should explicitly NOT be done]
+
+Requirements
+
+Functional requirements:
+
+…
+
+…
+
+Non-functional requirements (performance, security, reliability):
+
+…
+
+Deliverables
+Provide the solution in the following structured format:
+
+High-level architecture (components + responsibilities)
+
+Data flow & key interactions
+
+Core logic / algorithms (with explanations)
+
+API or interface design
+
+Edge cases & failure handling
+
+Security considerations & best practices
+
+Scalability & future extensions
+
+Quality Bar
+
+Assume this will be reviewed by senior engineers
+
+Avoid beginner explanations
+
+Make justified technical decisions
+
+Prefer industry best practices over shortcuts
+
+Output Style
+
+Clear sections
+
+Bullet points where appropriate
+
+Concise but thorough
+
+No marketing language, no fluff' },
+
+Context & Constraints
+
+Target users: [who will use it]
+
+Platform / Tech stack: [e.g., Node.js, Next.js, blockchain, AWS, etc.]
+
+Constraints: [time, budget, APIs, no smart contracts, performance limits, etc.]
+
+Non-goals: [what should explicitly NOT be done]
+
+Requirements
+
+Functional requirements:
+
+…
+
+…
+
+Non-functional requirements (performance, security, reliability):
+
+…
+
+Deliverables
+Provide the solution in the following structured format:
+
+High-level architecture (components + responsibilities)
+
+Data flow & key interactions
+
+Core logic / algorithms (with explanations)
+
+API or interface design
+
+Edge cases & failure handling
+
+Security considerations & best practices
+
+Scalability & future extensions
+
+Quality Bar
+
+Assume this will be reviewed by senior engineers
+
+Avoid beginner explanations
+
+Make justified technical decisions
+
+Prefer industry best practices over shortcuts
+
+Output Style
+
+Clear sections
+
+Bullet points where appropriate
+
+Concise but thorough
+
+No marketing language, no fluff' },
+
+Context & Constraints
+
+Target users: [who will use it]
+
+Platform / Tech stack: [e.g., Node.js, Next.js, blockchain, AWS, etc.]
+
+Constraints: [time, budget, APIs, no smart contracts, performance limits, etc.]
+
+Non-goals: [what should explicitly NOT be done]
+
+Requirements
+
+Functional requirements:
+
+…
+
+…
+
+Non-functional requirements (performance, security, reliability):
+
+…
+
+Deliverables
+Provide the solution in the following structured format:
+
+High-level architecture (components + responsibilities)
+
+Data flow & key interactions
+
+Core logic / algorithms (with explanations)
+
+API or interface design
+
+Edge cases & failure handling
+
+Security considerations & best practices
+
+Scalability & future extensions
+
+Quality Bar
+
+Assume this will be reviewed by senior engineers
+
+Avoid beginner explanations
+
+Make justified technical decisions
+
+Prefer industry best practices over shortcuts
+
+Output Style
+
+Clear sections
+
+Bullet points where appropriate
+
+Concise but thorough
+
+No marketing language, no fluff` },
+  ];
+
+  const container = document.getElementById("promptContainer");
+
+  prompts.forEach((item, index) => {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    const textDiv = document.createElement("div");
+    const title = document.createElement("div");
+    title.className = "title";
+    title.textContent = item.promptTitle;
+
+    const promptText = document.createElement("p");
+    promptText.className = "prompt";
+    promptText.textContent = item.prompt;
+
+    textDiv.appendChild(title);
+    textDiv.appendChild(promptText);
+
+    const copyBtn = document.createElement("button");
+    copyBtn.className = "copy-btn";
+    copyBtn.textContent = "Copy";
+
+    copyBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(item.prompt);
+        copyBtn.textContent = "Copied!";
+        copyBtn.classList.add("copied");
+        setTimeout(() => {
+          copyBtn.textContent = "Copy";
+          copyBtn.classList.remove("copied");
+        }, 2000);
+      } catch (err) {
+        console.error("Copy failed:", err);
+      }
+    });
+
+    card.appendChild(textDiv);
+    card.appendChild(copyBtn);
+
+    container.appendChild(card);
+  });
+</script>
+
+</body>
+</html>
