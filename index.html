@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Prompt List</title>
   <style>
     body {
@@ -11,10 +12,12 @@
       margin: 0;
       padding: 20px;
     }
+
     .container {
       max-width: 700px;
       margin: auto;
     }
+
     .card {
       background: white;
       padding: 15px;
@@ -23,16 +26,19 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
+
     .title {
       font-weight: bold;
       margin-bottom: 5px;
     }
+
     .prompt {
       color: #555;
       margin: 0;
     }
+
     .copy-btn {
       background: #3b82f6;
       color: white;
@@ -42,20 +48,94 @@
       cursor: pointer;
       font-size: 14px;
     }
+
     .copy-btn.copied {
       background: #10b981;
     }
   </style>
 </head>
+
 <body>
 
-<div class="container" id="promptContainer"></div>
+  <div class="container" id="promptContainer"></div>
 
-<script>
-  const prompts = [
-    { promptTitle: "GoTo Prompt to learn anything", prompt: "Explain [TOPIC] to me like I’m a total beginner with zero background. Use simple words, clear examples, and avoid jargon. Break it down step-by-step, and relate it to something I already know — like food, money, or everyday life. After explaining, ask me a simple question to test if I understood." },
-    { 
-        promptTitle: "Master Professional Build Prompt (Copy–Paste Ready)", 
+  <script>
+    const prompts = [
+      { promptTitle: "GoTo Prompt to learn anything", prompt: "Explain [TOPIC] to me like I’m a total beginner with zero background. Use simple words, clear examples, and avoid jargon. Break it down step-by-step, and relate it to something I already know — like food, money, or everyday life. After explaining, ask me a simple question to test if I understood." },
+      {
+        promptTitle: "0 to 100 prompt",
+        prompt: `I want to learn [TOPIC] from zero to mastery.
+
+Teach me in THREE progressive levels. 
+Do NOT skip levels. 
+Move to the next level ONLY after checking my understanding.
+
+────────────────────────
+LEVEL 1 — Beginner / Intuition (≈10–20%)
+────────────────────────
+Explain [TOPIC] assuming I have zero background.
+
+Rules:
+• Use very simple words
+• Avoid jargon and technical terms
+• Explain step-by-step
+• Use real-life analogies (food, money, traffic, daily life)
+• Give at least 2 simple examples
+
+End Level 1 by:
+1. Summarizing in 3 bullet points
+2. Asking me ONE very simple question
+
+STOP and wait for my answer before continuing.
+
+────────────────────────
+LEVEL 2 — Deep Dive / Practical Understanding (≈75%)
+────────────────────────
+After I answer correctly, continue to Level 2.
+
+Rules:
+• Start with a quick recap in simple terms
+• Introduce technical terms slowly and explain each clearly
+• Break the topic into logical sub-parts or layers
+• Explain how each part works and WHY it exists
+• Show how parts connect together
+
+Include:
+• Real-world use cases
+• Common beginner mistakes
+• “What happens if…” scenarios
+• Pros and cons or trade-offs
+
+End Level 2 by:
+1. Giving a simple mental model or framework
+2. Asking me 2–3 medium-difficulty questions
+
+STOP and wait for my answers before continuing.
+
+────────────────────────
+LEVEL 3 — Mastery / Expert Thinking (Remaining %)
+────────────────────────
+After I demonstrate understanding, continue to Level 3.
+
+Rules:
+• Explain from an expert’s perspective
+• Cover edge cases and rare scenarios
+• Explain trade-offs, limitations, and risks
+• Compare alternative approaches
+• Explain performance, scalability, and real-world constraints
+• Explain when NOT to use this concept
+
+End Level 3 by:
+1. Providing an expert checklist
+2. Giving 1–2 advanced real-world scenarios and asking how I would handle them
+3. Suggesting related topics to learn next
+
+Teaching goal:
+By the end, I should be able to explain, apply, design, optimize, and teach [TOPIC] confidently.
+`,
+      },
+      {
+        promptTitle: "Master Professional Build Prompt (Copy–Paste Ready)",
         prompt: ` Role & Expertise
 You are a senior-level [domain expert – e.g., software architect / blockchain engineer / product designer / AI engineer] with real-world production experience.
 
@@ -238,50 +318,51 @@ Bullet points where appropriate
 Concise but thorough
 
 No marketing language, no fluff` },
-  ];
+    ];
 
-  const container = document.getElementById("promptContainer");
+    const container = document.getElementById("promptContainer");
 
-  prompts.forEach((item, index) => {
-    const card = document.createElement("div");
-    card.className = "card";
+    prompts.forEach((item, index) => {
+      const card = document.createElement("div");
+      card.className = "card";
 
-    const textDiv = document.createElement("div");
-    const title = document.createElement("div");
-    title.className = "title";
-    title.textContent = item.promptTitle;
+      const textDiv = document.createElement("div");
+      const title = document.createElement("div");
+      title.className = "title";
+      title.textContent = item.promptTitle;
 
-    const promptText = document.createElement("p");
-    promptText.className = "prompt";
-    promptText.textContent = item.prompt;
+      const promptText = document.createElement("p");
+      promptText.className = "prompt";
+      promptText.textContent = item.prompt;
 
-    textDiv.appendChild(title);
-    textDiv.appendChild(promptText);
+      textDiv.appendChild(title);
+      textDiv.appendChild(promptText);
 
-    const copyBtn = document.createElement("button");
-    copyBtn.className = "copy-btn";
-    copyBtn.textContent = "Copy";
+      const copyBtn = document.createElement("button");
+      copyBtn.className = "copy-btn";
+      copyBtn.textContent = "Copy";
 
-    copyBtn.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(item.prompt);
-        copyBtn.textContent = "Copied!";
-        copyBtn.classList.add("copied");
-        setTimeout(() => {
-          copyBtn.textContent = "Copy";
-          copyBtn.classList.remove("copied");
-        }, 2000);
-      } catch (err) {
-        console.error("Copy failed:", err);
-      }
+      copyBtn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(item.prompt);
+          copyBtn.textContent = "Copied!";
+          copyBtn.classList.add("copied");
+          setTimeout(() => {
+            copyBtn.textContent = "Copy";
+            copyBtn.classList.remove("copied");
+          }, 2000);
+        } catch (err) {
+          console.error("Copy failed:", err);
+        }
+      });
+
+      card.appendChild(textDiv);
+      card.appendChild(copyBtn);
+
+      container.appendChild(card);
     });
-
-    card.appendChild(textDiv);
-    card.appendChild(copyBtn);
-
-    container.appendChild(card);
-  });
-</script>
+  </script>
 
 </body>
+
 </html>
